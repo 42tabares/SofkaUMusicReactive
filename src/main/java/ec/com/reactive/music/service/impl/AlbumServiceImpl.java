@@ -44,8 +44,12 @@ public class AlbumServiceImpl implements IAlbumService {
 
     @Override
     public Mono<ResponseEntity<AlbumDTO>> saveAlbum(AlbumDTO albumDTO) {
-        return null;
+        return this.iAlbumRepository
+                .save(DTOToEntity(albumDTO))
+                .map(this::entityToDTO)
+                .map(dto -> new ResponseEntity<>(dto, HttpStatus.CREATED)); //Mono<ResponseEntity<AlbumDTO>>
     }
+
 
 
 
